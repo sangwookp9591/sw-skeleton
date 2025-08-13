@@ -2,12 +2,13 @@ import React from 'react';
 
 export interface ButtonProps {
     children: React.ReactNode;
+    label?: string;
     onClick?: () => void;
     disabled?: boolean;
     variant?: 'primary' | 'secondary';
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, onClick, disabled = false, variant = 'primary' }) => {
+export const Button: React.FC<ButtonProps> = ({ children, label, onClick, disabled = false, variant = 'primary' }) => {
     const style = {
         padding: '8px 16px',
         border: 'none',
@@ -19,6 +20,7 @@ export const Button: React.FC<ButtonProps> = ({ children, onClick, disabled = fa
 
     return (
         <button style={style} onClick={onClick} disabled={disabled}>
+            {label}
             {children}
         </button>
     );
