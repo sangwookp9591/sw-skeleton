@@ -13,6 +13,9 @@ dist/
 lib/
 build/
 
+# test folder
+example
+
 # Storybook build output
 storybook-static/
 
