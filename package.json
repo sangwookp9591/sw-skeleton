@@ -1,16 +1,21 @@
 {
     "name": "sw-skeleton",
     "version": "1.0.0",
-    "description": "",
+    "description": "React용 공통 Skeleton 컴포넌트 라이브러리",
     "main": "dist/index.cjs.js",
     "module": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": [
+        "react",
+        "skeleton",
+        "component",
+        "ui-library"
+    ],
+    "author": "sangwook.park",
+    "license": "MIT",
     "peerDependencies": {
         "react": "^19.1.1",
         "react-dom": "^19.1.1"
