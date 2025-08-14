@@ -1,4 +1,4 @@
-import { skeletonBase, shimmerAnimation, shimmerGradientVar } from './skeleton.css';
+import styles from './skeleton.module.css';
 
 export type SkeletonProps = {
   width: number | string;
@@ -6,9 +6,9 @@ export type SkeletonProps = {
   borderRadius?: number | string;
   backgroundColor?: string;
   direction?: 'left-to-right' | 'right-to-left' | 'top-to-bottom' | 'bottom-to-top';
-  speed?: number; // 초 단위
+  speed?: number;
   shimmerColor?: string;
-  shimmerGradient?: string; // 커스텀 gradient
+  shimmerGradient?: string;
   style?: React.CSSProperties;
 };
 
@@ -18,7 +18,7 @@ export function Skeleton({
   borderRadius = 0,
   backgroundColor = 'rgb(230, 230, 230)',
   speed = 1.5,
-  direction,
+  direction = 'left-to-right',
   shimmerColor = 'rgba(255,255,255,0.4)',
   shimmerGradient,
   style,
@@ -27,17 +27,22 @@ export function Skeleton({
 
   const getShimmerBackground = () => {
     if (shimmerGradient) return shimmerGradient;
-
-    // 안전한 체크 추가
-    const isVertical = direction && (direction.includes('top') || direction.includes('bottom'));
+    const isVertical = direction.includes('top') || direction.includes('bottom');
     const gradientDirection = isVertical ? '180deg' : '90deg';
-
     return `linear-gradient(${gradientDirection}, transparent, ${shimmerColor}, transparent)`;
   };
 
+  // direction에 따라 클래스 선택
+  const directionClass = {
+    'left-to-right': styles.leftToRight,
+    'right-to-left': styles.rightToLeft,
+    'top-to-bottom': styles.topToBottom,
+    'bottom-to-top': styles.bottomToTop,
+  }[direction];
+
   return (
     <div
-      className={skeletonBase}
+      className={styles.skeletonBase}
       style={{
         width,
         height,
@@ -46,17 +51,10 @@ export function Skeleton({
         ...style,
       }}
     >
-      {/* // 빌드 타임에 처리됨
-                background: shimmerGradientVar, // CSS 변수 참조만 생성
-
-                // 런타임에 처리됨  
-                [shimmerGradientVar]: getShimmerBackground(), // 실제 값 할당
-            //  */}
       <div
-        className={shimmerAnimation({ direction })}
+        className={`${styles.shimmer} ${directionClass}`}
         style={{
           background: getShimmerBackground(),
-          // [shimmerGradientVar]: getShimmerBackground(),
           animationDuration: `${speed > MAX_SPEED ? MAX_SPEED : speed}s`,
         }}
       />
