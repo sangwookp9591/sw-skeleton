@@ -5,7 +5,7 @@ export type SkeletonProps = {
     height: number | string;
     borderRadius?: number | string;
     backgroundColor?: string;
-    shimmerStart?: number; // px 단위
+    direction?: 'left-to-right' | 'right-to-left' | 'top-to-bottom' | 'bottom-to-top';
     speed?: number; // 초 단위
     style?: React.CSSProperties;
 };
@@ -15,9 +15,9 @@ export default function Skeleton({
     height,
     borderRadius = 0,
     backgroundColor = 'rgb(230, 230, 230)',
-    shimmerStart = -150,
     speed = 1.5,
     style,
+    direction,
 }: SkeletonProps) {
     const MAX_SPEED = 3;
 
@@ -33,9 +33,8 @@ export default function Skeleton({
             }}
         >
             <div
-                className={shimmerAnimation}
+                className={shimmerAnimation({ direction })}
                 style={{
-                    transform: `translateX(${shimmerStart}px)`,
                     animationDuration: `${speed > MAX_SPEED ? MAX_SPEED : speed}s`,
                 }}
             />
