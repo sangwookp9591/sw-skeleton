@@ -1,0 +1,22 @@
+name: Release
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Read package.json version
+              id: pkg
+              run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+
+            - name: Create Tag
+              run: |
+                  git tag v${VERSION}
+                  git push origin v${VERSION}
