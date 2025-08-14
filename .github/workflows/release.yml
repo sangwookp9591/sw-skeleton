@@ -1,40 +1,42 @@
 name: Release
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  push:
+    branches: [main] # main 브랜치 push만 트리거
+  pull_request:
+    branches: [main] # main 브랜치 PR도 트리거
 
 permissions:
-    contents: write #  태그 푸시 권한 부여
+  contents: write
 
 jobs:
-    release:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Set up Git user
-              run: |
-                  git config --global user.name "github-actions[bot]"
-                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-            - name: Read package.json version
-              id: pkg
-              run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+      - name: Read package.json version
+        id: pkg
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
-            - name: Create Git Tag
-              run: |
-                  git tag v${VERSION}
-                  git push origin v${VERSION}
+      - name: Create Git Tag
+        if: github.ref == 'refs/heads/main' # main 브랜치일 때만 실행
+        run: |
+          git tag v${VERSION}
+          git push origin v${VERSION}
 
-            - name: Create GitHub Release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                  tag_name: v${{ env.VERSION }}
-                  release_name: Release v${{ env.VERSION }}
-                  draft: false
-                  prerelease: false
+      - name: Create GitHub Release
+        if: github.ref == 'refs/heads/main' # main 브랜치일 때만 실행
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
+          draft: false
+          prerelease: false
