@@ -11,24 +11,38 @@ export const skeletonBase = style({
     backgroundColor: 'rgb(230, 230, 230)',
 });
 // shimmer 애니메이션  keyframes 정의
+/**
+ * const shimmerKeyframes = keyframes({
+    '0%': { transform: 'translateX(-100%)' }, // 완전히 왼쪽 밖으로
+    '100%': { transform: 'translateX(100%)' },  // 완전히 오른쪽 밖으로
+});
+시각적으로:
+[-100%]    [skeleton 영역]    [100%]
+  ↑                              ↑
+시작위치                        끝위치
+(보이지않음)                  (보이지않음)
+
+shimmer가 -100% → 100%로 이동하면서
+skeleton 영역을 지나가는 효과!
+ */
 const shimmerLeftToRight = keyframes({
-    '0%': { transform: 'translateX(-150px)' },
+    '0%': { transform: 'translateX(-100%)' },
     '100%': { transform: 'translateX(100%)' },
 });
 
 const shimmerRightToLeft = keyframes({
     '0%': { transform: 'translateX(100%)' },
-    '100%': { transform: 'translateX(-150px)' },
+    '100%': { transform: 'translateX(-100%)' },
 });
 
 const shimmerTopToBottom = keyframes({
-    '0%': { transform: 'translateY(-150px)' },
+    '0%': { transform: 'translateY(-100%)' },
     '100%': { transform: 'translateY(100%)' },
 });
 
 const shimmerBottomToTop = keyframes({
     '0%': { transform: 'translateY(100%)' },
-    '100%': { transform: 'translateY(-150px)' },
+    '100%': { transform: 'translateY(-100%)' },
 });
 
 export const shimmerAnimation = recipe({
@@ -36,8 +50,8 @@ export const shimmerAnimation = recipe({
         position: 'absolute',
         top: 0,
         left: 0,
-        width: '150px',
-        height: '100%',
+        width: '100%', //부모와 크기 동일하게
+        height: '100%', //부모와 크기 동일하게
         animationDuration: '1.5s',
         animationIterationCount: 'infinite',
     },
