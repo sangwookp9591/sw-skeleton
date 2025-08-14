@@ -1,199 +1,142 @@
 # sw-skeleton
 
-좋아요! 그러면 지금까지 만든 **`shared-button` 라이브러리 + Storybook + example 테스트 + GitHub 설치** 전체 과정을 README.md 형식으로 정리해드릴게요.
-Notion에 바로 복붙해도 보기 좋게 구성했습니다.
+React용 공통 컴포넌트 라이브러리입니다. TypeScript로 작성되어 타입 안전성을 보장하며, Storybook을 통해 컴포넌트를 시각적으로 확인할 수 있습니다.
 
----
-
-```markdown
-# Shared Button Library
-
-TypeScript 기반 React 공통 버튼 컴포넌트 라이브러리입니다.  
-Storybook을 통해 UI를 확인할 수 있으며, GitHub에서 바로 설치하여 다른 프로젝트에서 사용 가능합니다.
-
----
-
-## 📂 프로젝트 구조
-```
-
-shared-button/
-├── src/
-│ ├── Button.tsx
-│ └── index.ts
-├── .storybook/
-│ ├── main.ts
-│ └── preview\.ts
-├── package.json
-├── tsconfig.json
-├── .gitignore
-└── README.md
-example/
-├── src/
-├── package.json
-└── vite.config.ts
-
-````
-
----
-
-## 1️⃣ Button 컴포넌트
-
-`src/Button.tsx`
-
-```tsx
-import React from 'react';
-
-export interface ButtonProps {
-    children: React.ReactNode;
-    label?: string;
-    onClick?: () => void;
-    disabled?: boolean;
-    variant?: 'primary' | 'secondary';
-}
-
-export const Button: React.FC<ButtonProps> = ({ children, label, onClick, disabled = false, variant = 'primary' }) => {
-    const style = {
-        padding: '8px 16px',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        backgroundColor: variant === 'primary' ? 'blue' : 'gray',
-        color: 'white',
-    };
-
-    return (
-        <button style={style} onClick={onClick} disabled={disabled}>
-            {label}
-            {children}
-        </button>
-    );
-};
-````
-
----
-
-## 2️⃣ Storybook 스토리
-
-`src/Button.stories.tsx`
-
-```tsx
-import type { Meta, StoryObj } from '@storybook/react';
-import { Button, ButtonProps } from './Button';
-
-const meta: Meta<ButtonProps> = {
-    title: 'Components/Button',
-    component: Button,
-    tags: ['autodocs'],
-    argTypes: {
-        onClick: { action: 'clicked' },
-        variant: { control: { type: 'radio' }, options: ['primary', 'secondary'] },
-        disabled: { control: 'boolean' },
-        label: { control: 'text' },
-        children: { control: 'text' },
-    },
-};
-
-export default meta;
-
-type Story = StoryObj<ButtonProps>;
-
-export const Default: Story = { args: { label: '기본 버튼' } };
-export const Primary: Story = { args: { label: 'Primary 버튼', variant: 'primary' } };
-export const Secondary: Story = { args: { label: 'Secondary 버튼', variant: 'secondary' } };
-export const Disabled: Story = { args: { label: 'Disabled 버튼', disabled: true } };
-export const WithChildren: Story = { args: { label: '버튼 + ', children: <span>🎉</span> } };
-```
-
----
-
-## 3️⃣ 설치
-
-### 3-1. GitHub에서 직접 설치
+## 📦 설치
 
 ```bash
-npm install git+https://github.com/사용자명/shared-button.git
+npm install sw-skeleton
 ```
 
-### 3-2. 특정 브랜치 또는 버전
-
-```bash
-npm install git+https://github.com/사용자명/shared-button.git#main
-npm install git+https://github.com/사용자명/shared-button.git#v1.0.0
-```
-
----
-
-## 4️⃣ 사용 예시
+## 🚀 빠른 시작
 
 ```tsx
-import React from 'react';
-import { Button } from 'shared-button';
+import { Button } from 'sw-skeleton';
 
-export default function App() {
-    return (
-        <div>
-            <Button label="공유 버튼" onClick={() => alert('눌림!')} />
-            <Button variant="secondary">자식 요소</Button>
-        </div>
-    );
+function App() {
+    return <Button onClick={() => alert('클릭됨!')}>클릭하세요</Button>;
 }
 ```
 
----
+## 🧩 컴포넌트
 
-## 5️⃣ 빌드
+### Button
 
-라이브러리 빌드:
+기본 버튼 컴포넌트입니다.
+
+```tsx
+import { Button } from 'sw-skeleton';
+
+// 기본 사용법
+<Button onClick={() => console.log('클릭!')}>
+    클릭하세요
+</Button>
+
+// 다양한 옵션
+<Button
+    variant="secondary"
+    disabled={false}
+    label="버튼 텍스트"
+    onClick={() => alert('클릭됨!')}
+>
+    추가 콘텐츠
+</Button>
+```
+
+#### Props
+
+| Prop       | 타입                       | 기본값      | 설명               |
+| ---------- | -------------------------- | ----------- | ------------------ |
+| `children` | `React.ReactNode`          | -           | 버튼 내부 콘텐츠   |
+| `label`    | `string`                   | -           | 버튼 텍스트        |
+| `onClick`  | `() => void`               | -           | 클릭 이벤트 핸들러 |
+| `disabled` | `boolean`                  | `false`     | 비활성화 여부      |
+| `variant`  | `'primary' \| 'secondary'` | `'primary'` | 버튼 스타일        |
+
+## 🛠️ 개발
+
+### 요구사항
+
+-   Node.js 18+
+-   npm 9+
+
+### 설치
 
 ```bash
+git clone <repository-url>
+cd sw-skeleton
+npm install
+```
+
+### 스크립트
+
+```bash
+# 라이브러리 빌드
 npm run build
+
+# Storybook 실행
+npm run storybook
+
+# Storybook 빌드
+npm run build-storybook
 ```
 
--   `dist/index.cjs` → CommonJS
--   `dist/index.esm.js` → ESM
--   `dist/index.d.ts` → 타입 정의
+## 📁 프로젝트 구조
 
-빌드에는 [tsup](https://tsup.egoist.dev/) 사용
+```
+sw-skeleton/
+├── src/
+│   ├── Button.tsx          # Button 컴포넌트
+│   └── index.ts            # 라이브러리 진입점
+├── dist/                   # 빌드된 파일들
+│   ├── index.js           # CommonJS 형식
+│   ├── index.mjs          # ESM 형식
+│   └── index.d.ts         # TypeScript 타입 정의
+├── stories/                # Storybook 스토리들
+├── example/                # 사용 예제 프로젝트
+├── package.json
+└── README.md
+```
 
----
+## 🎨 Storybook
 
-## 6️⃣ Storybook 실행
+컴포넌트를 시각적으로 확인하고 테스트할 수 있습니다.
 
 ```bash
 npm run storybook
 ```
 
--   `.storybook/` 폴더 + `src/**/*.stories.tsx` 파일을 기반으로 UI 확인
--   `storybook-static/` 빌드 폴더는 git에 포함하지 않음
+브라우저에서 [http://localhost:6006](http://localhost:6006)을 열어 확인하세요.
 
----
+## 📦 빌드
 
-## 7️⃣ Git 관리 팁
+라이브러리는 다음 형식으로 빌드됩니다:
 
-`.gitignore` 예시:
+-   **CommonJS**: `dist/index.js`
+-   **ESM**: `dist/index.mjs`
+-   **TypeScript 타입**: `dist/index.d.ts`
 
-```
-node_modules
-dist
-storybook-static
-*.log
-.DS_Store
-```
+빌드에는 [tsup](https://tsup.egoist.dev/)을 사용하여 최적화된 번들을 생성합니다.
 
--   `.storybook/`와 `stories`는 push
--   `dist/`, `node_modules/`, `storybook-static/`는 push X
+## 🔧 기술 스택
 
----
+-   **React**: 18+ / 19+
+-   **TypeScript**: 5.9+
+-   **Storybook**: 9.1+
+-   **tsup**: 8.5+
 
-## 8️⃣ License
+## 📝 라이센스
 
--   MIT License (자유롭게 사용/수정/배포 가능, 저작권 표기 필요)
--   LICENSE 파일 포함
+MIT License - 자유롭게 사용, 수정, 배포 가능합니다.
 
-```
+## 🤝 기여하기
 
----
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-원하면 제가 이 README.md 기반으로 **Notion에 바로 붙일 수 있도록 서식 + 코드 블록 강조**까지 적용한 버전으로 만들어서 드릴 수도 있어요.
-그럼 시각적으로 더 보기 좋습니다.
-```
+## 📞 지원
+
+버그 리포트나 기능 제안은 [GitHub Issues](https://github.com/your-username/sw-skeleton/issues)를 이용해주세요.
