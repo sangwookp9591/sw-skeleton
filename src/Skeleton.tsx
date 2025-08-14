@@ -1,24 +1,39 @@
-import styles from './Skeleton.module.css';
+import { skeleton, shimmerAnimation, shimmerStartVar, speedVar } from './skeleton.css';
 
 export type SkeletonProps = {
     width: number | string;
     height: number | string;
     borderRadius?: number | string;
     backgroundColor?: string;
+    shimmerStart?: string;
+    speed?: number;
     style?: React.CSSProperties;
 };
 
-export default function Skeleton({ width, height, borderRadius, backgroundColor, style }: SkeletonProps) {
+export default function Skeleton({
+    width,
+    height,
+    borderRadius = 0,
+    backgroundColor = 'rgb(230, 230, 230)',
+    shimmerStart = '-150px',
+    speed = 1.5,
+    style,
+}: SkeletonProps) {
+    const MAXIMUM_SPEED = 3;
     return (
         <div
-            className={styles.skeleton}
+            className={skeleton()}
             style={{
                 width,
                 height,
-                borderRadius: borderRadius || 0,
-                backgroundColor: backgroundColor || 'rgb(230, 230, 230)',
+                borderRadius,
+                backgroundColor,
+                [shimmerStartVar]: shimmerStart,
+                [speedVar]: speed > MAXIMUM_SPEED ? MAXIMUM_SPEED : speed,
                 ...style,
             }}
-        ></div>
+        >
+            <div className={shimmerAnimation}></div>
+        </div>
     );
 }
