@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './skeleton.module.css';
 
 export type SkeletonProps = {
@@ -6,7 +7,7 @@ export type SkeletonProps = {
   borderRadius?: number | string;
   backgroundColor?: string;
   direction?: 'left-to-right' | 'right-to-left' | 'top-to-bottom' | 'bottom-to-top';
-  speed?: number;
+  speed?: number; // 초 단위
   shimmerColor?: string;
   shimmerGradient?: string;
   style?: React.CSSProperties;
@@ -25,6 +26,7 @@ export function Skeleton({
 }: SkeletonProps) {
   const MAX_SPEED = 3;
 
+  // gradient 계산
   const getShimmerBackground = () => {
     if (shimmerGradient) return shimmerGradient;
     const isVertical = direction.includes('top') || direction.includes('bottom');
