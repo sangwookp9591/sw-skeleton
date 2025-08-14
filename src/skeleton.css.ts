@@ -4,6 +4,8 @@ import { recipe } from '@vanilla-extract/recipes';
 // CSS 변수 생성
 // export const shimmerStartVar = createVar();
 // export const speedVar = createVar();
+export const shimmerColorVar = createVar();
+export const shimmerGradientVar = createVar();
 
 export const skeletonBase = style({
     position: 'relative',
@@ -58,23 +60,15 @@ export const shimmerAnimation = recipe({
     variants: {
         direction: {
             'left-to-right': {
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
                 animation: `1.5s infinite ${shimmerLeftToRight}`,
             },
             'right-to-left': {
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
                 animation: `1.5s infinite ${shimmerRightToLeft}`,
             },
             'top-to-bottom': {
-                width: '100%',
-                height: '150px',
-                background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)',
                 animation: `1.5s infinite ${shimmerTopToBottom}`,
             },
             'bottom-to-top': {
-                width: '100%',
-                height: '150px',
-                background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)',
                 animation: `1.5s infinite ${shimmerBottomToTop}`,
             },
         },
