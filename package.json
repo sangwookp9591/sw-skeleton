@@ -1,6 +1,6 @@
 {
     "name": "sw-skeleton",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "React용 공통 Skeleton 컴포넌트 라이브러리",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -39,8 +39,13 @@
         "@storybook/react-webpack5": "^9.1.2",
         "@types/react": "^19.1.10",
         "@types/react-dom": "^19.1.7",
+        "@vanilla-extract/webpack-plugin": "^2.3.22",
         "storybook": "^9.1.2",
         "tsup": "^8.5.0",
         "typescript": "^5.9.2"
+    },
+    "dependencies": {
+        "@vanilla-extract/css": "^1.17.4",
+        "@vanilla-extract/recipes": "^0.5.7"
     }
 }
