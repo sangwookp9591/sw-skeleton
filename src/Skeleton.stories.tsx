@@ -37,14 +37,18 @@ export const RedCircle: Story = {
         height: '100px',
         borderRadius: '50px',
         backgroundColor: 'red',
+        direction: 'top-to-bottom',
+        shimmerColor: 'silver',
     },
 };
 
-export const Red: Story = {
+export const BlueAndGold: Story = {
     args: {
-        width: '100px',
-        height: '100px',
+        width: '500px',
+        height: '10px',
         borderRadius: '50px',
         backgroundColor: 'blue',
+        speed: 3,
+        shimmerGradient: 'linear-gradient(90deg, transparent, gold, transparent)',
     },
 };
