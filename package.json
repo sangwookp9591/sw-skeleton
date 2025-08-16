@@ -5,18 +5,12 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react --external react-dom",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

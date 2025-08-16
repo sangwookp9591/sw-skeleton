@@ -161,7 +161,7 @@ sw-skeleton/
 ├── src/
 │   ├── Skeleton.tsx        # Skeleton 컴포넌트
 │   ├── Skeleton.stories.tsx # Storybook 스토리
-│   ├── skeleton.css.ts     # 스타일 정의
+│   ├── skeleton.module.css # CSS 모듈 스타일
 │   └── index.ts            # 라이브러리 진입점
 ├── dist/                   # 빌드된 파일들
 │   ├── index.js           # CommonJS 형식
@@ -198,7 +198,7 @@ npm run storybook
 - **TypeScript**: 5.9+
 - **Storybook**: 9.1+
 - **tsup**: 8.5+
-- **Vanilla Extract**: CSS-in-JS 스타일링
+- **CSS Modules**: 스타일링
 
 ## 📝 라이센스
 
