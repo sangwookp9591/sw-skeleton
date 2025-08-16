@@ -10,10 +10,12 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    }
+    },
+    "./dist/*": "./dist/*"
   },
   "files": [
-    "dist"
+    "dist/**/*",
+    "*.css"
   ],
   "scripts": {
     "dev": "vite",
