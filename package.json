@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.build.json --emitDeclarationOnly && vite build",
+    "build": "vite build && tsc -p tsconfig.build.json --emitDeclarationOnly",
     "build:types": "tsc -p tsconfig.build.json --emitDeclarationOnly",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
