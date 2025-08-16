@@ -71,3 +71,10 @@
     transform: translateY(-100%);
   }
 }
+
+/* 다크 모드 지원 */
+@media (prefers-color-scheme: dark) {
+  .skeletonBase {
+    filter: brightness(0.8);
+  }
+}
